@@ -1,0 +1,60 @@
+﻿<Window x:Class="test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:test"
+        mc:Ignorable="d"
+        Title="Calaulator" Height="450" Width="800">
+    <Grid Margin="0,0,0,-5" RenderTransformOrigin="0.5,0.5" Background="#FF5F64A6">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="0.26"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+
+        <Button Content="1" HorizontalAlignment="Left" Margin="70,100,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="40" Height="30"/>
+        <Button Content="2" HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Click="Button_Click_2" Width="40" Height="30"/>
+        <Button Content="3" HorizontalAlignment="Left" Margin="230,100,0,0" VerticalAlignment="Top" Click="Button_Click_3" Width="40" Height="30"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="310,100,0,0" VerticalAlignment="Top" Click="Button_Click_10" Width="40" Height="30"/>
+
+        <Button Content="4" HorizontalAlignment="Left" Margin="70,180,0,0" VerticalAlignment="Top" Click="Button_Click_4" Width="40" Height="30"/>
+        <Button Content="5" HorizontalAlignment="Left" Margin="150,180,0,0" VerticalAlignment="Top" Click="Button_Click_5" Width="40" Height="30"/>
+        <Button Content="6" HorizontalAlignment="Left" Margin="230,180,0,0" VerticalAlignment="Top" Click="Button_Click_6" Width="40" Height="30"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="310,180,0,0" VerticalAlignment="Top" Click="Button_Click_11" Width="40" Height="30"/>
+
+        <Button Content="7" HorizontalAlignment="Left" Margin="70,260,0,0" VerticalAlignment="Top" Click="Button_Click_7" Width="40" Height="30"/>
+        <Button Content="8" HorizontalAlignment="Left" Margin="150,260,0,0" VerticalAlignment="Top" Click="Button_Click_8" Width="40" Height="30"/>
+        <Button Content="9" HorizontalAlignment="Left" Margin="230,260,0,0" VerticalAlignment="Top" Click="Button_Click_9" Width="40" Height="30"/>
+        <Button Content="*" HorizontalAlignment="Left" Margin="310,260,0,0" VerticalAlignment="Top" Click="Button_Click_12" Width="40" Height="30"/>
+
+        <Button Content="0" HorizontalAlignment="Left" Margin="70,340,0,0" VerticalAlignment="Top" Click="Button_Click_0" Width="40" Height="30"/>
+        <Button Content="clear" HorizontalAlignment="Left" Margin="150,340,0,0" VerticalAlignment="Top" Click="Button_Click_13" Width="40" Height="30"/>
+        <Button Content="=" HorizontalAlignment="Left" Margin="230,340,0,0" VerticalAlignment="Top" Click="Button_Click_14" Width="40" Height="30"/>
+        <Button Content="/" HorizontalAlignment="Left" Margin="310,340,0,0" VerticalAlignment="Top" Click="Button_Click_15" Width="40" Height="30"/>
+
+        <TextBlock x:Name="textblock1" HorizontalAlignment="Left" Margin="70,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FFF7F1F1" Width="280" Height="30"/>
+
+        <TextBlock x:Name="preorder" HorizontalAlignment="Left" Margin="460,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" RenderTransformOrigin="0.104,1.163" Background="#FFF7F1F1" Width="100" Height="30"/>
+        <TextBlock x:Name="postorder" HorizontalAlignment="Left" Margin="460,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FFF7F1F1" Width="100" Height="30"/>
+        <TextBlock x:Name="decimalans" HorizontalAlignment="Left" Margin="460,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FFF7F1F1" Width="100" Height="30"/>
+        <TextBlock x:Name="binaryans" HorizontalAlignment="Left" Margin="460,340,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Background="#FFF7F1F1" Width="100" Height="30"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="580,105,0,0" TextWrapping="Wrap" Text="Preorder" VerticalAlignment="Top"  Width="100" Height="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="580,185,0,0" TextWrapping="Wrap" Text="Postorder" VerticalAlignment="Top"  Width="100" Height="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="580,265,0,0" TextWrapping="Wrap" Text="Deciaml" VerticalAlignment="Top"  Width="100" Height="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="580,345,0,0" TextWrapping="Wrap" Text="Binary" VerticalAlignment="Top"  Width="100" Height="30"/>
+
+        <Button x:Name="insert" Content="insert" HorizontalAlignment="Left" Margin="460,40,0,0" VerticalAlignment="Top" Click="Button_Click_insert" Width="100" Height="30"/>
+        <Button x:Name="query" Content="query" HorizontalAlignment="Left" Margin="580,40,0,0" VerticalAlignment="Top" Click="Button_Click_query" Width="100" Height="30"/>
+
+        <Rectangle HorizontalAlignment="Left" Height="366" Margin="55,22,0,0" Stroke="Black" VerticalAlignment="Top" Width="311"/>
+        <WindowsFormsHost HorizontalAlignment="Left" Height="100" Margin="723,256,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1060,223,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+
+
+    </Grid>
+</Window>
