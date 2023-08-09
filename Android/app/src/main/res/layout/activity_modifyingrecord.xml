@@ -11,10 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:layout_marginTop="27dp"
-        android:layout_marginBottom="292dp"
         android:text="Modifying Record"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/age2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,13 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="13dp"
         android:text="Age :"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/age2"
         app:layout_constraintEnd_toStartOf="@+id/age2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView18"
@@ -62,13 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="91dp"
         android:text="Height(cm) :"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
+        app:layout_constraintBaseline_toBaselineOf="@+id/height2"
         app:layout_constraintEnd_toStartOf="@+id/height2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView20"
@@ -76,13 +72,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="17dp"
-        android:layout_marginBottom="163dp"
         android:text="Weight(kg) :"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/weight2"
         app:layout_constraintEnd_toStartOf="@+id/weight2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/name2"
@@ -90,7 +84,9 @@
         android:layout_height="60dp"
         android:layout_marginTop="130dp"
         android:layout_marginEnd="23dp"
+        android:layout_marginBottom="119dp"
         android:hint="name"
+        app:layout_constraintBottom_toBottomOf="@+id/radiogroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toTopOf="parent" />
@@ -119,12 +115,12 @@
         android:id="@+id/radiogroup"
         android:layout_width="0dp"
         android:layout_height="68dp"
-        android:layout_marginTop="241dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="52dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/age2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView18"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/textView18">
 
         <RadioButton
             android:id="@+id/rbtnm2"
@@ -142,41 +138,39 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/age2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="58dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/textView19"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <EditText
         android:id="@+id/height2"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="129dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="125dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
+        app:layout_constraintBottom_toBottomOf="@+id/weight2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView19" />
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="@+id/age2" />
 
     <EditText
         android:id="@+id/weight2"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="108dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="144dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="@+id/btncancel2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toTopOf="@+id/textView19" />
+        app:layout_constraintStart_toEndOf="@+id/textView20" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/age2"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

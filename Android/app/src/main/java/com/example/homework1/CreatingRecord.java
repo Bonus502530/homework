@@ -10,6 +10,13 @@ import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 public class CreatingRecord extends AppCompatActivity {
 
     Button btncancel;
@@ -20,6 +27,8 @@ public class CreatingRecord extends AppCompatActivity {
     EditText age;
     EditText height;
     EditText weight;
+
+    Boolean modify = false;
 
 
     @Override
@@ -55,6 +64,8 @@ public class CreatingRecord extends AppCompatActivity {
 
                 int weight_value = Integer.parseInt(weight.getText().toString());
                 bundle.putInt("weight", weight_value);
+
+                bundle.putBoolean("modify", modify);
 
                 Intent it = new Intent(CreatingRecord.this, Result.class);
                 it.putExtras(bundle);
