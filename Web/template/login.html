@@ -33,16 +33,47 @@
 
         <div class="row justify-content-md-center">
                 <div class="col-4">
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">account</label>
-                        <input type="account" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="InputPassword1">
-                    </div>
-                    <input class="btn btn-primary btn-lg" type="submit" value="登入"onclick="window.location.href='index.html';">
-                    <input class="btn btn-primary btn-lg" type="button" value="註冊新帳號" onclick="window.location.href='register.html';">
+                    <form action="http://140.115.200.131/web1/login.php" method="post" onsubmit="return handleFormSubmission();">
+                        <div class="mb-3">
+                            <label for="account" class="form-label">account</label>
+                            <input type="text" class="form-control" id="account" name="account" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="user_password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="user_password" name="user_password" required>
+                        </div>
+                        <input class="btn btn-primary btn-lg" type="submit" value="登入">
+                        <input class="btn btn-primary btn-lg" type="button" value="註冊新帳號" onclick="window.location.href='register.html';">
+                    </form>
+
+                    <script>
+                        function handleFormSubmission() {
+                            var account = document.getElementById('account').value;
+                            var user_password = document.getElementById('user_password').value;
+            
+                            fetch('http://140.115.200.131/web1/login.php', {
+                                method: 'POST',
+                                body: new URLSearchParams({
+                                    account: account,
+                                    user_password: user_password
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.status === 'success') {
+                                    window.location.href = 'index.html';
+                                } else {
+                                    alert('帳號或密碼錯誤!');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+            
+                            return false;
+                        }
+                    </script>
+
                 </div>
         </div>
     </div>
@@ -62,3 +93,5 @@
 </body>
 
 </html>
+
+

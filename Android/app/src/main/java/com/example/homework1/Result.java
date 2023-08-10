@@ -114,11 +114,9 @@ public class Result extends AppCompatActivity {
                             try {
                                 URL url;
                                 if (modify) {
-                                    // 修改数据的 URL
                                     url = new URL("http://140.115.200.131/myapp/update.php");
                                     //Log.d("hi", "te");
                                 } else {
-                                    // 插入数据的 URL
                                     url = new URL("http://140.115.200.131/myapp/insert_record.php");
                                     //Log.d("hihi", "test");
                                 }

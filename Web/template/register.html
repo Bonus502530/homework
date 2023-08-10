@@ -32,63 +32,96 @@
             </div>
         </div>
 
-        <from class="row justify-content-md-center">
-       
-            <!-- school data andemail and password-->
+        <div class="row justify-content-md-center">
             <div class="col-4">
-                <div class="md-3">
-                    <label for="InputClass" class="form-label">account</label>
-                    <input type="text" class="form-control" id="inputAccount" required>
-                </div>
-                <div class="md-3">
-                    <label for="InputStudID" class="form-label">password</label>
-                    <input type="text" class="form-control" id="inputPassword" required>
-                </div>
-                <div class="mb-3">
-                    <label for="InputEmail2" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" required>
-                </div>
-                <div class="mb-3">
-                    <label for="InputGender" class="form-label">Gender</label>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                男
-                                </label>
+                <form method="post" action="http://140.115.200.131/web1/register.php"  onsubmit="return handleFormSubmission();">
+                    <div class="md-3">
+                        <label for="account2" class="form-label">account</label>
+                        <input type="text" class="form-control" id="account2" name="account2" required>
+                    </div>
+                    <div class="md-3">
+                        <label for="user_password2" class="form-label">password</label>
+                        <input type="password" class="form-control" id="user_password2" name="user_password2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
+                                    <label class="form-check-label" for="male">
+                                    男
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                            女
-                                </label>
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked>
+                                    <label class="form-check-label" for="female">
+                                女
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                其他
-                                </label>
+                            <div class="col-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="other" value="other" checked>
+                                    <label class="form-check-label" for="other">
+                                    其他
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="InputEmail2" class="form-label">喜歡的顏色</label>
-                    <div id="color">
-                        <input type="color" id="colorpicker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width: 85%;">
+                    <div class="mb-3">
+                        <label for="color" class="form-label">喜歡的顏色</label>
+                        <div id="color">
+                            <input type="color" id="color" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width: 85%;" name="color" required>
+                        </div>
                     </div>
-                </div>
-                <input class="btn btn-primary btn-lg" type="button" value="確認註冊" onclick="window.location.href='login.html';">
+                    <input class="btn btn-primary btn-lg" type="submit" value="確認註冊">
+                </form>
+
+                <script>
+                    function handleFormSubmission() {
+                        var account2 = document.getElementById('account2').value;
+                        var user_password2 = document.getElementById('user_password2').value;
+                        var email = document.getElementById('email').value;
+                        var gender = document.querySelector('input[name="gender"]:checked').value;
+                        var color = document.getElementById('color').value;
+        
+                        fetch('http://140.115.200.131/web1/register.php', {
+                            method: 'POST',
+                            body: new URLSearchParams({
+                                account2: account2,
+                                user_password2: user_password2,
+                                email: email,
+                                gender: gender,
+                                color: color
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.status === 'success') {
+                                window.location.href = 'login.html';
+                            } else {
+                                alert('註冊失敗!');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+        
+                        return false;
+                    }
+                </script>
 
             </div>
-
         </div>
-    </from>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -105,3 +138,5 @@
 </body>
 
 </html>
+
+

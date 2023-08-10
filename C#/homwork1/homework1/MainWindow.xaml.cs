@@ -283,7 +283,7 @@ namespace test {
                         {
                             MessageBox.Show("算式已存在");
                         }
-                    } // 关闭数据读取器
+                    } 
 
                     if (!exist){
                         string sqlInsertQuery = "INSERT INTO calculator (prefix, infix, postfix, decimalans, binaryans) VALUES (@preorder, @textblock1, @postorder, @decimalans, @binaryans)";

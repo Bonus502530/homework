@@ -36,7 +36,7 @@ namespace WpfApp1
                 string sqlSelectQuery = "SELECT * FROM calculator";
                 MySqlCommand command = new MySqlCommand(sqlSelectQuery, connection);
 
-                // 使用 MySqlDataAdapter 执行查询并获取结果
+                
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
                 dataAdapter.Fill(dataTable);
@@ -83,14 +83,14 @@ namespace WpfApp1
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("发生异常：" + ex.Message);
+                    Console.WriteLine("發生異常：" + ex.Message);
                 }
             }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (showout.SelectedItem is DataRowView selectedRow)
-            // 获取选定项
+            
             {
                 int idToDelete = Convert.ToInt32(selectedRow["id"]);
 
@@ -107,24 +107,24 @@ namespace WpfApp1
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            Console.WriteLine("删除成功！");
+                            Console.WriteLine("刪除成功！");
                             result.Text = "success";
-                            LoadData(); // 刷新数据
+                            LoadData(); 
                         }
                         else
                         {
-                            Console.WriteLine("删除失败！");
+                            Console.WriteLine("刪除失敗！");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("发生异常：" + ex.Message);
+                    Console.WriteLine("發生異常：" + ex.Message);
                 }
             }
             else
             {
-                Console.WriteLine("请选择要删除的项！");
+                Console.WriteLine("請選擇要刪除的選項!");
             }
         }
     }
