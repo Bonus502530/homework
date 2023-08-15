@@ -34,7 +34,7 @@
 
         <div class="row justify-content-md-center">
             <div class="col-4">
-                <form method="post" action="http://140.115.200.131/web1/register.php"  onsubmit="return handleFormSubmission();">
+                <form method="post" action="http://140.115.200.131/web1/register.php"  id="registrationForm">
                     <div class="md-3">
                         <label for="account2" class="form-label">account</label>
                         <input type="text" class="form-control" id="account2" name="account2" required>
@@ -79,19 +79,23 @@
                     <div class="mb-3">
                         <label for="color" class="form-label">喜歡的顏色</label>
                         <div id="color">
-                            <input type="color" id="color" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width: 85%;" name="color" required>
+                            <input type="color" id="colorInput" onchange="updateColorDisplay();" value="#ff0000" style="width: 85%;" name="color" required>
                         </div>
                     </div>
                     <input class="btn btn-primary btn-lg" type="submit" value="確認註冊">
                 </form>
 
+
+                
                 <script>
-                    function handleFormSubmission() {
+                    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+
                         var account2 = document.getElementById('account2').value;
                         var user_password2 = document.getElementById('user_password2').value;
                         var email = document.getElementById('email').value;
                         var gender = document.querySelector('input[name="gender"]:checked').value;
-                        var color = document.getElementById('color').value;
+                        var color = document.getElementById('colorInput').value;
         
                         fetch('http://140.115.200.131/web1/register.php', {
                             method: 'POST',
@@ -114,9 +118,7 @@
                         .catch(error => {
                             console.error('Error:', error);
                         });
-        
-                        return false;
-                    }
+                    });
                 </script>
 
             </div>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot with OpenAI API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="chat-container">
+                    <div id="chat-log"></div>
+                    <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
+                    <button id="send-button" class="btn btn-primary mt-2">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = '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';
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const conversationHistory = []; // save the conversation history
+
+        sendButton.addEventListener('click', sendMessage);
+
+        async function sendMessage() {
+            const userMessage = userInput.value;
+            if (userMessage.trim() === '') return;
+
+            appendMessage('user', userMessage);
+
+            // History of conversation
+            const messages = [
+                { role: 'system', content: '輸入內容' },
+                ...conversationHistory,
+                { role: 'user', content: userMessage }
+            ];
+
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        {role: 'system', content: '我是傲嬌機器人，不要跟我說話'},
+                        {role: 'user', content: userMessage},
+                    ]
+                })
+            });
+
+            const data = await response.json();
+            const assistantReply = data.choices[0].message.content;
+
+            appendMessage('assistant', assistantReply);
+            userInput.value = '';
+
+            // add the user message and assistant reply to the conversation history
+            conversationHistory.push({ role: 'user', content: userMessage });
+            // add the assistant reply to the conversation history
+            conversationHistory.push({ role: 'assistant', content: assistantReply });
+        }
+
+        function appendMessage(role, content) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add(role);
+            messageElement.innerText = role + " : " + content;
+            chatLog.appendChild(messageElement);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

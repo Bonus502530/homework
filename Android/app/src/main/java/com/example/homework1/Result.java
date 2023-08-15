@@ -114,10 +114,10 @@ public class Result extends AppCompatActivity {
                             try {
                                 URL url;
                                 if (modify) {
-                                    url = new URL("http://140.115.200.131/myapp/update.php");
+                                    url = new URL("http://192.168.131.11/myapp/update.php");
                                     //Log.d("hi", "te");
                                 } else {
-                                    url = new URL("http://140.115.200.131/myapp/insert_record.php");
+                                    url = new URL("http://192.168.131.11/myapp/insert_record.php");
                                     //Log.d("hihi", "test");
                                 }
 

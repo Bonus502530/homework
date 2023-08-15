@@ -17,6 +17,26 @@
 </head>
 
 <body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var userId = localStorage.getItem('userId');
+            if (userId) {
+                // 執行 AJAX 請求，從資料庫中獲取帳號資訊
+                fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
+                .then(response => response.json())
+                .then(data => {
+                    var account = data.account;
+                    document.getElementById('userAccount').innerText = account; // 在相應的位置顯示帳號
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+    </script>
+
+
     <!-- navbar -->
     <!-- <nav class="navbar navbar-dark" style="background-color:blueviolet;"> -->
 
@@ -45,6 +65,7 @@
             </div> -->
         <!-- </div> -->
     <!-- </nav> -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Web1</a>
@@ -65,10 +86,153 @@
                 </ul>
             </div>
             <ul class="navbar-nav navbar-right">
-                <input class="btn btn-primary btn-lg" type="button" value="登出" onclick="window.location.href='login.html';">
+                <li class="nav-item">
+                    <span class="nav-link">你好，<span id="userAccount"></span></span>
+                </li>
+                <li class="nav-item">
+                    <input class="btn btn-primary btn-lg" type="button" value="登出" onclick="logout();">
+                </li>
             </ul>
         </div>
+
+        <script>
+            function logout() {
+                // 清空 localStorage 中的使用者 ID
+                localStorage.removeItem('userId');
+        
+                // 導向到登入頁面
+                window.location.href = 'login.html';
+            }
+        </script>
+
+        <script>
+            // 顯示使用者帳號的歡迎字串
+            var userId = localStorage.getItem('userId');
+            if (userId) {
+                fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
+                .then(response => response.json())
+                .then(data => {
+                    var account = data.account;
+                    document.getElementById('userAccount').innerText = account; // 顯示帳號
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        </script>
+
       </nav>
+
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-4">
+                <h1>檔案上傳</h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-4">
+                <div class="mb-3">
+                    <figure class="text-center">
+                        <label for="formFileMultiple" class="form-label">👇👇👇上傳檔案👇👇👇(只能上傳1MB以下)</label>
+                    </figure>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-4">
+            <h2>已上傳檔案清單</h2>
+            <ul id="fileList" class="list-group"></ul>
+        </div>
+    </div>
+
+
+  
+    <script>
+        document.getElementById('formFileMultiple').addEventListener('change', handleFileUpload);
+    
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            const fileInfos = [];
+    
+            for (const file of files) {
+                const fileInfo = {
+                    name: file.name,
+                    size: file.size,
+                    data: file,
+                    uploadTime: new Date().toLocaleString() // 上傳時間為當前時間
+                };
+                fileInfos.push(fileInfo);
+            }
+    
+            // 現在你可以在這裡執行你的上傳檔案相關操作，例如顯示檔案資訊等
+            console.log(fileInfos);
+    
+            // 呼叫 AJAX 函數將檔案資訊傳送到後端
+            uploadFiles(fileInfos);
+        }
+    
+        function uploadFiles(fileInfos) {
+            const userId = localStorage.getItem('userId');
+            const formData = new FormData();
+    
+            // 將每個檔案的資訊都加入到 FormData
+            for (const fileInfo of fileInfos) {
+                formData.append('files[]', fileInfo.data);
+            }
+    
+            // 加入使用者 ID
+            formData.append('userId', userId);
+    
+            // 呼叫後端 API 來上傳檔案
+            fetch('http://140.115.200.131/web1/uploadfile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message); // 顯示後端回傳的訊息
+                
+                // 上傳成功後更新已上傳檔案清單
+                updateFileList();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function updateFileList() {
+            const fileListElement = document.getElementById('fileList');
+            
+            // 清空原本的清單
+            fileListElement.innerHTML = '';
+
+            // 呼叫後端 API 來取得已上傳檔案清單
+            fetch('http://140.115.200.131/web1/filelist.php')
+            .then(response => response.json())
+            .then(data => {
+                const files = data.files;
+
+                // 逐個檔案生成清單項目
+                files.forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item';
+                    listItem.textContent = `${file.file_name} (${file.file_size} bytes, 上傳時間: ${file.file_uploadtime})`;
+                    fileListElement.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // 呼叫此函數來更新已上傳檔案清單
+        updateFileList();
+
+    </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"

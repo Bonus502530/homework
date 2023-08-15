@@ -61,6 +61,8 @@
                             .then(response => response.json())
                             .then(result => {
                                 if (result.status === 'success') {
+                                    console.log(result);
+                                    localStorage.setItem('userId', result.ID);
                                     window.location.href = 'index.html';
                                 } else {
                                     alert('帳號或密碼錯誤!');

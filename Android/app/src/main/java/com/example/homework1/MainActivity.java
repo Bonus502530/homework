@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                URL url = new URL("http://140.115.200.131/myapp/read_record.php");
+                URL url = new URL("http://192.168.131.11/myapp/read_record.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://140.115.200.131/myapp/delete_record.php");
+                    URL url = new URL("http://192.168.131.11/myapp/delete_record.php");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
