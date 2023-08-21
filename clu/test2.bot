@@ -1,0 +1,18 @@
+{
+    "name": "test2",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "name": "http://localhost:3978/api/messages",
+            "id": "accd9a80-3cca-11ee-b67d-1bc2d77ea2af",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "path": "D:\\senior project\\clu\\test2.bot",
+    "overrides": null
+}
