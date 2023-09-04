@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <title>web1</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../pic/favicon.jpg" />
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var userId = localStorage.getItem('userId');
+            if (userId) {
+                // 執行 AJAX 請求，從資料庫中獲取帳號資訊
+                fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
+                .then(response => response.json())
+                .then(data => {
+                    var account = data.account;
+                    document.getElementById('userAccount').innerText = account; // 在相應的位置顯示帳號
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+    </script>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" onclick="logNavigation('查看首頁')">Web1</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-left">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="member_list.html" onclick="logNavigation('查看會員列表')">會員列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="modify_personal_information.html" onclick="logNavigation('查看修改個人資料')">修改個人資料</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="file_manger.html" onclick="logNavigation('查看檔案管理')">檔案管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="message.html" onclick="logNavigation('查看留言板')">留言板</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="subscribe.html" onclick="logNavigation('查看訂閱')">訂閱</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="admin.html" onclick="logNavigation('查看會員管理')">會員管理</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav  ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">你好，<span id="userAccount"></span></span>
+                    </li>
+                    <li class="nav-item">
+                        <input class="btn btn-primary" type="button" value="登出" onclick="logout();">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            function logout() {
+                // 清空 localStorage 中的使用者 ID
+                localStorage.removeItem('userId');
+        
+                // 導向到登入頁面
+                window.location.href = 'login.html';
+            }
+        </script>
+
+        <script>
+            // 顯示使用者帳號的歡迎字串
+            var userId = localStorage.getItem('userId');
+            var account;
+            if (userId) {
+                fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
+                .then(response => response.json())
+                .then(data => {
+                    account = data.account;
+                    document.getElementById('userAccount').innerText = account; // 顯示帳號
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            function logNavigation(action) {
+                // 獲取當前使用者名稱
+                const user_name = account;
+
+                // 獲取當前時間
+                const currentTime = new Date("Y-m-d H:i:s").toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+            
+                console.log(user_name);
+                console.log(action);
+                console.log(currentTime);
+
+                // 發送 POST 請求
+                fetch('http://140.115.200.131/web1/log.php', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        user_name: user_name,
+                        action: action,
+                        log_time: currentTime
+                    })
+                })
+            }
+        </script>
+    </nav>
+
+    <div class="text-center">
+        <button class="btn btn-primary" id="subscribeButton" onclick="toggleSubscription();">訂閱</button>
+    </div>
+
+    <div id="imageContainer" class="text-center">
+        <img id="subscribedImage" src="../pic/subscribe.jpg" class="img-fluid" style="display: none;">
+    </div>
+    
+
+    <script>
+        // 獲取當前用戶的 subscribe 值
+        var subscribeButton = document.getElementById('subscribeButton');
+        var userId = localStorage.getItem('userId');
+        var isSubscribed = false; // 訂閱狀態預設為 false
+
+        var imageContainer = document.getElementById('imageContainer');
+        var subscribedImage = document.getElementById('subscribedImage');
+
+        if (userId) {
+            fetch('http://140.115.200.131/web1/get_subscribe.php?id=' + userId)
+            .then(response => response.json())
+            .then(data => {
+                var subscribeValue = data.subscribe;
+                // 根據 subscribe 值更新按鈕文字
+                if (subscribeValue === 0) {
+                    isSubscribed = false;
+                    subscribeButton.innerText = '訂閱';
+                    subscribedImage.style.display = 'none';
+                } else if (subscribeValue === 1) {
+                    isSubscribed = true;
+                    subscribeButton.innerText = '取消訂閱';
+                    subscribedImage.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('錯誤：', error);
+            });
+        }
+
+        function toggleSubscription() {
+            if(isSubscribed){
+                logNavigation("取消訂閱");
+                subscribedImage.style.display = 'none';
+            }
+            else{
+                logNavigation("訂閱");
+                subscribedImage.style.display = 'block';
+            }
+
+            isSubscribed = !isSubscribed; // 切換訂閱狀態
+
+            // 更新按鈕文字
+            var subscribeButton = document.getElementById('subscribeButton');
+            subscribeButton.innerText = isSubscribed ? '取消訂閱' : '訂閱';
+
+            // 更新資料庫中的 subscribe 欄位（這部分需要使用 AJAX 請求）
+            var userId = localStorage.getItem('userId'); // 獲取當前用戶 ID
+            if (userId) {
+                var newValue = isSubscribed ? 1 : 0; // 設置新的 subscribe 值
+                // 執行 AJAX 請求，將 newValue 更新到資料庫中的 subscribe 欄位
+                fetch('http://140.115.200.131/web1/subscribe.php?id=' + userId + '&subscribe=' + newValue, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Subscription updated successfully.');
+                    } else {
+                        console.error('Failed to update subscription.');
+                        // 如果更新失敗，將訂閱狀態切換回原始狀態
+                        isSubscribed = !isSubscribed;
+                        subscribeButton.innerText = isSubscribed ? '取消訂閱' : '訂閱';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // 如果出現錯誤，也將訂閱狀態切換回原始狀態
+                    isSubscribed = !isSubscribed;
+                    subscribeButton.innerText = isSubscribed ? '取消訂閱' : '訂閱';
+                });
+            }
+
+            function logNavigation(action) {
+                // 獲取當前使用者名稱
+                const user_name = account;
+
+                // 獲取當前時間
+                const currentTime = new Date("Y-m-d H:i:s").toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+            
+                //console.log(user_name);
+                //console.log(action);
+                //console.log(currentTime);
+
+                // 發送 POST 請求
+                fetch('http://140.115.200.131/web1/log.php', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        user_name: user_name,
+                        action: action,
+                        log_time: currentTime
+                    })
+                })
+            }
+
+        }
+    </script>
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

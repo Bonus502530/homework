@@ -13,7 +13,7 @@
     <title>web1</title>
 
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="pic/favicon.jpg" />
+    <link rel="icon" type="image/x-icon" href="../pic/favicon.jpg" />
 </head>
 
 <body>
@@ -39,31 +39,40 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Web1</a>
+            <a class="navbar-brand" href="index.html" onclick="logNavigation('查看首頁')">Web1</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav navbar-left">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="member_list.html">會員列表</a>
+                        <a class="nav-link" aria-current="page" href="member_list.html" onclick="logNavigation('查看會員列表')">會員列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="modify_personal_information.html">修改個人資料</a>
+                        <a class="nav-link" aria-current="page" href="modify_personal_information.html" onclick="logNavigation('查看修改個人資料')">修改個人資料</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="file_manger.html">檔案管理</a>
+                        <a class="nav-link" aria-current="page" href="file_manger.html" onclick="logNavigation('查看檔案管理')">檔案管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="message.html" onclick="logNavigation('查看留言板')">留言板</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="subscribe.html" onclick="logNavigation('查看訂閱')">訂閱</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="admin.html" onclick="logNavigation('查看會員管理')">會員管理</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav  ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">你好，<span id="userAccount"></span></span>
+                    </li>
+                    <li class="nav-item">
+                        <input class="btn btn-primary" type="button" value="登出" onclick="logout();">
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav navbar-right">
-                <li class="nav-item">
-                    <span class="nav-link">你好，<span id="userAccount"></span></span>
-                </li>
-                <li class="nav-item">
-                    <input class="btn btn-primary btn-lg" type="button" value="登出" onclick="logout();">
-                </li>
-            </ul>
         </div>
 
         <script>
@@ -79,19 +88,41 @@
         <script>
             // 顯示使用者帳號的歡迎字串
             var userId = localStorage.getItem('userId');
+            var account;
             if (userId) {
                 fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
                 .then(response => response.json())
                 .then(data => {
-                    var account = data.account;
+                    account = data.account;
                     document.getElementById('userAccount').innerText = account; // 顯示帳號
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
             }
-        </script>
 
+            function logNavigation(action) {
+                // 獲取當前使用者名稱
+                const user_name = account;
+
+                // 獲取當前時間
+                const currentTime = new Date("Y-m-d H:i:s").toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+            
+                console.log(user_name);
+                console.log(action);
+                console.log(currentTime);
+
+                // 發送 POST 請求
+                fetch('http://140.115.200.131/web1/log.php', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        user_name: user_name,
+                        action: action,
+                        log_time: currentTime
+                    })
+                })
+            }
+        </script>
     </nav>
 
 

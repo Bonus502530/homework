@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "inductive-dream-397601",
+  "private_key_id": "c605e2fd9ee8ad2a3d14405103035f82688ab06f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCStCgho9iardsQ\nvSOA6YxHlZYIE9RUS2nUBLJ+4odvk4DEmBoEGTKQPS4QSKJFBZgfxLuhTOyJum35\n8r/m5Q7SXYBSaBOGHWAjp8nC/abJXTeolM0ozTr9T92BApG+Vs+GKuVtnWRJoIqm\nW7o8AiZwTWP7mt6PDDueeBushwT0dupETvtXx0oWL3KOlAxqHQ3eERefXf2YWS6+\np/nxxHdHVoDM11ud9j0tuQOzCyz2O3r65QrEtjG7L4FtF7US4tFsw8laiMAyAZ3F\nzIFf4a4dXOoRXk+X7pUpKMujDl/D4IbGKaOLdNXPXlR0GxSVyiGfVzLxAmilQ1tM\nyaazR2WNAgMBAAECggEAJAVHK0dbKlOQy9Hc80yk7Hiun2obAt2HbQ8AMsZ1QbCi\nd+Lu1F3JfAABnO7wpOjkOryn40mLdJ/JXAs+EjfgxUc++DzkulPhJLAQiqeUObIB\nNgvfOer2VnczKHeUiHsxNjy3G4x/MNLR6FnyZsSSYpWl/IPArLfwtY7BIMIANfPT\nkgNIphHgonES9gJow3ygRTTK3uQcjH+1G7H8BGaa4z9wRnsaQaucPi/1Dxof/UR2\nxXzQCK+83mG2flKhhr3wKuIEE268V0xf+vBmwDT/d88X5pkDwPoeR7a0eKOb8LDM\nWvkisd03uCglLtcKjfIic90m9ICy5GezsecOTMJ0oQKBgQDEJYlawZSjA9pNHDVl\nCjR58AYGiOR8JQ2ygTOhY9fwphr6A/bwG9Gud5vFek9SJSAumesn6l2ikEm1P6zV\neCsDnoJAMc0dYAmbAxiFbj2aw6vTVMbv1P/qjnRsfyZKOXAKQjHBAyyChHi19iO9\n/oNdksHho58xXloRJQ3hPm2I/QKBgQC/eEU/M7RnQWVoJuY//94U7knwHxLgpe/p\nSjxj+I9l2gO7swkWbC65hplIIcpCSGi8IetcYcZtEphm9Kj6Cgq7K85a6ZO/bI+u\n1eIeBvqaGlM8+JHVBufWXWAjbaCw73ElWH01MAtmgz2rjbhxkJuH236L9NXjyvJb\nMS3wbf170QKBgQC52FL3MblyZ0EclKCmtm+YJWqgIG5UjgsXWcGgpehBNDEVOFJt\nl/4pD10BU+z6CQEgBmg/rpi/YXTlDYrly/D9gd8pkcYlkgwn2lwOeLBYBhO0rXu8\nW5WLGSSIdETESP22Spe3qBkxJPD2f1vINfEj5NxcvVolPZ+a5P/srei8xQKBgQCR\nyRWQpeG6rQR1ZQjzufJypW0Os9o/ypj9XFTXGa61smYdSJimxgBdqqqTTYcfKNr2\nRC1czeWzrvDzk14F5Bd/pD8e4bJpklNkn93nVxEAvQKb7fe75+ImSjqlPxeXIPlZ\noiLTmJ1VlKAkO2gwsBZ8Pxf/oJArPZ+C59M+ucDDwQKBgBpHcIsCsjLqgYowKlI5\nTUdCzVJbJMD2I+djXWud+wjvsIG9GKUsxTZ2c0sZ8L+cod+jDkgWdO5UiBW7IrdZ\ncc5+uRQM834HHccMe0AYvuEyTwXGDxUJDfQPgHsKrDiiY80R9ks6wv52IhxjFtkj\noIx+dlmGsWv7hG5NgX2F98Om\n-----END PRIVATE KEY-----\n",
+  "client_email": "ocrtest@inductive-dream-397601.iam.gserviceaccount.com",
+  "client_id": "116462819513034581988",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ocrtest%40inductive-dream-397601.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

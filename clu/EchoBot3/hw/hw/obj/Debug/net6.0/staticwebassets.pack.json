@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\senior project\\clu\\EchoBot3\\hw\\hw\\wwwroot\\default.htm",
+      "PackagePath": "staticwebassets\\default.htm"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.hw.props",
+      "PackagePath": "build\\hw.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.hw.props",
+      "PackagePath": "buildMultiTargeting\\hw.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.hw.props",
+      "PackagePath": "buildTransitive\\hw.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.hw.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

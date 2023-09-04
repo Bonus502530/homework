@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "9Zt1ltAoXfFsZeFOHBJai3VLUzKQyZHROzTf6omVCJU=",
+  "Source": "hw",
+  "BasePath": "_content/hw",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "hw\\wwwroot",
+      "Source": "hw",
+      "ContentRoot": "D:\\senior project\\clu\\EchoBot3\\hw\\hw\\wwwroot\\",
+      "BasePath": "_content/hw",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\senior project\\clu\\EchoBot3\\hw\\hw\\wwwroot\\default.htm",
+      "SourceId": "hw",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\senior project\\clu\\EchoBot3\\hw\\hw\\wwwroot\\",
+      "BasePath": "_content/hw",
+      "RelativePath": "default.htm",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\default.htm"
+    }
+  ]
+}

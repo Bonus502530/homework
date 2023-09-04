@@ -13,7 +13,7 @@
     <title>web1</title>
 
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="pic/favicon.jpg" />
+    <link rel="icon" type="image/x-icon" href="../pic/favicon.jpg" />
 </head>
 
 <body>
@@ -66,33 +66,43 @@
         <!-- </div> -->
     <!-- </nav> -->
 
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Web1</a>
+            <a class="navbar-brand" href="index.html" onclick="logNavigation('查看首頁')">Web1</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav navbar-left">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="member_list.html">會員列表</a>
+                        <a class="nav-link" aria-current="page" href="member_list.html" onclick="logNavigation('查看會員列表')">會員列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="modify_personal_information.html">修改個人資料</a>
+                        <a class="nav-link" aria-current="page" href="modify_personal_information.html" onclick="logNavigation('查看修改個人資料')">修改個人資料</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="file_manger.html">檔案管理</a>
+                        <a class="nav-link" aria-current="page" href="file_manger.html" onclick="logNavigation('查看檔案管理')">檔案管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="message.html" onclick="logNavigation('查看留言板')">留言板</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="subscribe.html" onclick="logNavigation('查看訂閱')">訂閱</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="admin.html" onclick="logNavigation('查看會員管理')">會員管理</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav  ms-auto">
+                    <li class="nav-item">
+                        <span class="nav-link">你好，<span id="userAccount"></span></span>
+                    </li>
+                    <li class="nav-item">
+                        <input class="btn btn-primary" type="button" value="登出" onclick="logout();">
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav navbar-right">
-                <li class="nav-item">
-                    <span class="nav-link">你好，<span id="userAccount"></span></span>
-                </li>
-                <li class="nav-item">
-                    <input class="btn btn-primary btn-lg" type="button" value="登出" onclick="logout();">
-                </li>
-            </ul>
         </div>
 
         <script>
@@ -108,19 +118,41 @@
         <script>
             // 顯示使用者帳號的歡迎字串
             var userId = localStorage.getItem('userId');
+            var account;
             if (userId) {
                 fetch('http://140.115.200.131/web1/get_account.php?id=' + userId)
                 .then(response => response.json())
                 .then(data => {
-                    var account = data.account;
+                    account = data.account;
                     document.getElementById('userAccount').innerText = account; // 顯示帳號
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
             }
-        </script>
 
+            function logNavigation(action) {
+                // 獲取當前使用者名稱
+                const user_name = account;
+
+                // 獲取當前時間
+                const currentTime = new Date("Y-m-d H:i:s").toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+            
+                console.log(user_name);
+                console.log(action);
+                console.log(currentTime);
+
+                // 發送 POST 請求
+                fetch('http://140.115.200.131/web1/log.php', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        user_name: user_name,
+                        action: action,
+                        log_time: currentTime
+                    })
+                })
+            }
+        </script>
       </nav>
 
     <div class="container-fluid">
@@ -142,28 +174,40 @@
         </div>
     </div>
 
-    <div class="row justify-content-md-center">
-        <div class="col-4">
-            <h2>已上傳檔案清單</h2>
-            <ul id="fileList" class="list-group"></ul>
-        </div>
+    <div class="container">
+        <h1>已上傳檔案清單</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="fixed-column">檔案名稱</th>
+                    <th scope="col" class="fixed-column">檔案大小</th>
+                    <th scope="col" class="fixed-column">檔案上傳時間</th>
+                    <th scope="col" class="fixed-column">檔案功能</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- User data will be added here -->
+            </tbody>
+        </table>
     </div>
 
 
   
     <script>
         document.getElementById('formFileMultiple').addEventListener('change', handleFileUpload);
-    
+
         function handleFileUpload(event) {
             const files = event.target.files;
             const fileInfos = [];
     
             for (const file of files) {
+                const userId = localStorage.getItem('userId');
+                const options = { timeZone: 'Asia/Taipei' };
                 const fileInfo = {
                     name: file.name,
                     size: file.size,
                     data: file,
-                    uploadTime: new Date().toLocaleString() // 上傳時間為當前時間
+                    uploadTime: new Date().toLocaleString('zh-TW', options), // 上傳時間為當前時間
                 };
                 fileInfos.push(fileInfo);
             }
@@ -176,8 +220,9 @@
         }
     
         function uploadFiles(fileInfos) {
-            const userId = localStorage.getItem('userId');
+            
             const formData = new FormData();
+            const userId = localStorage.getItem('userId');
     
             // 將每個檔案的資訊都加入到 FormData
             for (const fileInfo of fileInfos) {
@@ -188,14 +233,22 @@
             formData.append('userId', userId);
     
             // 呼叫後端 API 來上傳檔案
-            fetch('http://140.115.200.131/web1/uploadfile.php', {
+            fetch('http://140.115.200.131/web1/uploadfile2.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.message); // 顯示後端回傳的訊息
-                
+                //console.log(data.message); // 顯示後端回傳的訊息
+                if (data.status === 'success') {
+                    console.error('上傳成功：', data.status);
+                    alert('上傳成功!');
+                    //updateFileList();
+                } else {
+                    console.error('上傳失敗：', data.status);
+                    alert('上傳失敗!');
+                    //updateFileList();
+                }
                 // 上傳成功後更新已上傳檔案清單
                 updateFileList();
             })
@@ -205,23 +258,132 @@
         }
 
         function updateFileList() {
-            const fileListElement = document.getElementById('fileList');
+            const fileListElement = document.getElementById('userTableBody');
             
             // 清空原本的清單
             fileListElement.innerHTML = '';
+            userId = localStorage.getItem('userId');
+            //console.log(userId);
 
+            console.log("userId:", userId);
             // 呼叫後端 API 來取得已上傳檔案清單
-            fetch('http://140.115.200.131/web1/filelist.php')
+            fetch('http://140.115.200.131/web1/filelist2.php?id=' + userId)
             .then(response => response.json())
             .then(data => {
-                const files = data.files;
+                //console.log(data);
 
                 // 逐個檔案生成清單項目
-                files.forEach(file => {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'list-group-item';
-                    listItem.textContent = `${file.file_name} (${file.file_size} bytes, 上傳時間: ${file.file_uploadtime})`;
-                    fileListElement.appendChild(listItem);
+                data.forEach(file => {
+                    const row = document.createElement('tr');
+
+                    const nameCell = document.createElement('td');
+                    const fileName = file.file_name;
+                    nameCell.textContent = fileName + ' (id: ' + file.file_id + ')';
+                    row.appendChild(nameCell);
+
+                    const sizeCell = document.createElement('td');
+                    const fileSizeBytes = file.file_size;
+                    const fileSizeKB = fileSizeBytes / 1024;
+                    sizeCell.textContent = fileSizeKB.toFixed(2) + ' KB';
+                    row.appendChild(sizeCell);
+
+                    const uploadTimeCell = document.createElement('td');
+                    uploadTimeCell.textContent = file.file_uploadtime;
+                    row.appendChild(uploadTimeCell);
+
+                    const actionCell = document.createElement('td');
+
+                    // 下載按鈕
+                    const downloadButton = document.createElement('button');
+                    downloadButton.textContent = '下載';
+                    downloadButton.classList.add('btn', 'btn-outline-primary', 'mx-2');
+                    downloadButton.addEventListener('click', () => {
+                        const fileid = file.file_id;
+                        //console.log(fileid);
+                        // 在這裡處理下載檔案的操作，例如導向到下載頁面
+                        // window.location.href = '下載頁面的網址';
+                        window.location.href = 'http://140.115.200.131/web1/download2.php?file_id=' + fileid;
+                    });
+                    actionCell.appendChild(downloadButton);
+
+                    // 刪除按鈕
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = '刪除';
+                    deleteButton.classList.add('btn', 'btn-outline-success', 'mx-2');
+                    deleteButton.addEventListener('click', () => {
+                        const fileid = file.file_id;
+                        console.log(fileid);
+    
+                        // 向後端API發送刪除請求
+                        fetch(`http://140.115.200.131/web1/deletefile2.php?id=${fileid}`, {
+                            method: 'GET',
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                // 刪除成功，可以更新前端介面或執行其他操作
+                                // 例如，從DOM中刪除該文件的相關元素
+                                console.error('刪除成功：', data.status);
+                                updateFileList();
+                            } else {
+                                // 刪除失敗，處理錯誤情況
+                                console.error('刪除失敗：', data.status);
+                                updateFileList();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('刪除時發生錯誤：', error);
+                        });
+                    });
+                    actionCell.appendChild(deleteButton);
+
+                    // 重命名按鈕
+                    const renameButton = document.createElement('button');
+                    renameButton.textContent = '改檔名';
+                    renameButton.classList.add('btn', 'btn-outline-danger', 'mx-2');
+                    renameButton.addEventListener('click', () => {
+                        const fileid = file.file_id;
+                        console.log(fileid);
+                        console.log(file.file_name);
+                        // 在這裡處理重命名檔案的操作
+                        renameFile(fileid, file.file_name);
+
+                        function renameFile(fileId, currentFileName) {
+                            const newName = prompt('請輸入新的檔案名稱：', currentFileName);
+                            if (newName === null || newName === '') {
+                                return; // 使用者取消或未輸入新名稱
+                            }
+
+                            // 呼叫後端 API 來進行檔案重命名操作
+                            fetch('http://140.115.200.131/web1/renamefile2.php', {
+                                method: 'POST',
+                                body:  new URLSearchParams({
+                                    file_id: fileId,
+                                    new_name: newName
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                //console.log(data.message);
+                                if (data.status === 'success') {
+                                    alert('更改成功!');
+                                } else {
+                                    alert('更改失敗!');
+                                }
+                                // 重命名成功後更新已上傳檔案清單
+                                updateFileList();
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+
+                    });
+                    actionCell.appendChild(renameButton);
+                    
+                    row.appendChild(actionCell);
+
+                    userTableBody.appendChild(row);
                 });
             })
             .catch(error => {
@@ -231,7 +393,6 @@
 
         // 呼叫此函數來更新已上傳檔案清單
         updateFileList();
-
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
